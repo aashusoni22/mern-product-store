@@ -2,9 +2,8 @@ import { RiShoppingCartFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { BsCartXFill } from "react-icons/bs";
 import { useProductStore } from "../store/product";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import Modal from "../components/Modal";
 
 const HomePage = () => {
   const { fetchProducts, products } = useProductStore();
@@ -15,10 +14,12 @@ const HomePage = () => {
 
   return (
     <main>
-      <div className="flex flex-col max-w-7xl mx-auto px-4 py-4 sm:px-6 mt-12">
+      <div className="flex flex-col max-w-7xl mx-auto px-6 py-4 sm:px-6 mt-12">
         <div className="flex gap-2 items-center">
-          <RiShoppingCartFill className="text-3xl text-white" />
-          <h1 className="text-3xl font-bold text-white">Current Products</h1>
+          <RiShoppingCartFill className="text-2xl md:text-3xl text-white" />
+          <h1 className="text-2xl md:text-3xl font-semibold text-white">
+            Current Products
+          </h1>
         </div>
 
         {products.length === 0 && (

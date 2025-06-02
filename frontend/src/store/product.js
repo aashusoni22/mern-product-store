@@ -21,11 +21,13 @@ export const useProductStore = create((set) => ({
 
     return { success: true, message: "Product created successfully" };
   },
+
   fetchProducts: async () => {
     const res = await fetch("/api/products");
     const data = await res.json();
     set({ products: data.data });
   },
+
   deleteProduct: async (id) => {
     const res = await fetch(`/api/products/${id}`, {
       method: "DELETE",
@@ -39,6 +41,7 @@ export const useProductStore = create((set) => ({
 
     return { success: true, message: data.message };
   },
+
   updateProduct: async (id, updatedProduct) => {
     const res = await fetch(`/api/products/${id}`, {
       method: "PUT",

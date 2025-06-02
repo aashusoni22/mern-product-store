@@ -1,19 +1,26 @@
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
-import { useProductStore } from "../store/product";
-import { Bounce, toast } from "react-toastify";
 import { useState } from "react";
-import Modal from "./Modal";
+import UpdateModal from "./UpdateModal";
+import { RiShoppingCartLine } from "react-icons/ri";
+import DeleteModal from "./DeleteModal";
+import { useCartStore } from "../store/cart";
+import { Bounce, toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
-  const { deleteProduct } = useProductStore();
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { addToCart } = useCartStore();
 
-  const handleDelete = async (productId) => {
-    const { success, message } = await deleteProduct(productId);
+  const handleEdit = () => {
+    setShowModal(true);
+  };
+
+  const handleAddToCart = async () => {
+    const { success, message } = await addToCart(product);
 
     if (success) {
-      toast.success("Product deleted successfully", {
+      toast.success("Product added to cart", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -38,15 +45,12 @@ const ProductCard = ({ product }) => {
       });
     }
   };
-  const handleEdit = () => {
-    setShowModal(true);
-  };
 
   return (
     <>
       <div
         key={product._id}
-        className="bg-slate-800 p-4 rounded shadow-md md:hover:scale-105 transition duration-300 ease-in-out"
+        className="bg-slate-800 p-4 rounded shadow-md border-2 border-slate-800 md:hover:border-cyan-400 transition duration-300 ease-in-out"
       >
         <img
           src={product.image}
@@ -60,21 +64,33 @@ const ProductCard = ({ product }) => {
 
         <div className="flex items-center gap-2 mt-2">
           <button
+            onClick={handleAddToCart}
             className="bg-cyan-500 text-white p-2 rounded hover:bg-cyan-600 transition duration-200 ease-in-out cursor-pointer"
+          >
+            <RiShoppingCartLine className="text-xl" />
+          </button>
+          <button
+            className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer"
             onClick={handleEdit}
           >
             <BiEdit className="text-xl" />
           </button>
           <button
             className="bg-rose-500 text-white p-2 rounded hover:bg-rose-600 transition duration-200 ease-in-out cursor-pointer"
-            onClick={() => handleDelete(product._id)}
+            onClick={() => setShowDeleteModal(true)}
           >
             <MdOutlineDeleteOutline className="text-xl" />
           </button>
         </div>
       </div>
       {showModal && (
-        <Modal product={product} onClose={() => setShowModal(false)} />
+        <UpdateModal product={product} onClose={() => setShowModal(false)} />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          product={product}
+          onClose={() => setShowDeleteModal(false)}
+        />
       )}
     </>
   );

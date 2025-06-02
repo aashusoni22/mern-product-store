@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useProductStore } from "../store/product";
 import { Bounce, toast } from "react-toastify";
 
-const Modal = ({ isOpen, onClose, product }) => {
+const UpdateModal = ({ onClose, product }) => {
   const { updateProduct } = useProductStore();
   const [updatedProduct, setUpdatedProduct] = useState(product);
 
@@ -105,7 +105,7 @@ const Modal = ({ isOpen, onClose, product }) => {
           <div className="flex items-center gap-2 mt-2 mb-2">
             <button
               type="submit"
-              className="bg-cyan-500 p-2 w-full rounded text-white hover:bg-cyan-600 cursor-pointer duration-200 transition ease-in-out"
+              className="bg-yellow-500 p-2 w-full rounded text-white hover:bg-yellow-600 cursor-pointer duration-200 transition ease-in-out"
             >
               Update
             </button>
@@ -122,4 +122,4 @@ const Modal = ({ isOpen, onClose, product }) => {
   );
 };
 
-export default Modal;
+export default UpdateModal;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useProductStore } from "../store/product";
 import { Bounce, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
@@ -8,6 +9,7 @@ const CreatePage = () => {
     price: "",
     image: "",
   });
+  const navigate = useNavigate();
 
   const { createProduct } = useProductStore();
 
@@ -46,12 +48,14 @@ const CreatePage = () => {
       price: "",
       image: "",
     });
+
+    navigate("/");
   };
 
   return (
     <div className="bg-slate-950 mt-24">
       <div className="flex flex-col justify-center items-center h-full">
-        <div className="bg-slate-800 p-4 mt-5 w-96 rounded">
+        <div className="bg-slate-800 p-4 mt-5 w-88 md:w-96 rounded">
           <h1 className="text-2xl text-center font-bold text-white mb-4">
             Create New Product
           </h1>

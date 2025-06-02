@@ -3,11 +3,10 @@ import dotenv from "dotenv";
 import path from "path";
 import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
+import cartRoutes from "./routes/cart.routes.js";
 
-// Load environment variables
 dotenv.config();
 
-// Create an Express app
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,6 +16,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 
 app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Start the server
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server started at http://localhost:${PORT} 🚀`);
