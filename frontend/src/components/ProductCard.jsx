@@ -50,33 +50,33 @@ const ProductCard = ({ product }) => {
     <>
       <div
         key={product._id}
-        className="bg-slate-800 p-4 rounded shadow-md border-2 border-slate-800 md:hover:border-cyan-400 transition duration-300 ease-in-out"
+        className="bg-slate-800 p-4 rounded shadow-md border border-slate-800 md:hover:border-cyan-400 transition duration-300 ease-in-out"
       >
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover rounded-lg"
+          className="w-full h-56 object-cover rounded"
         />
         <h2 className="text-lg font-semibold mt-2 text-white">
           {product.name}
         </h2>
         <p className="text-slate-400">${product.price}</p>
 
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-2 mt-4">
           <button
             onClick={handleAddToCart}
-            className="bg-cyan-500 text-white p-2 rounded hover:bg-cyan-600 transition duration-200 ease-in-out cursor-pointer"
+            className="bg-green-500 text-white p-2 w-full flex justify-center rounded hover:bg-green-600 transition duration-200 ease-in-out cursor-pointer"
           >
             <RiShoppingCartLine className="text-xl" />
           </button>
           <button
-            className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer"
+            className="bg-blue-500 text-white p-2 w-full flex justify-center rounded hover:bg-blue-600 transition duration-200 ease-in-out cursor-pointer"
             onClick={handleEdit}
           >
             <BiEdit className="text-xl" />
           </button>
           <button
-            className="bg-rose-500 text-white p-2 rounded hover:bg-rose-600 transition duration-200 ease-in-out cursor-pointer"
+            className="bg-slate-600 text-white p-2 w-24 flex justify-center rounded hover:bg-slate-700 transition duration-200 ease-in-out cursor-pointer"
             onClick={() => setShowDeleteModal(true)}
           >
             <MdOutlineDeleteOutline className="text-xl" />

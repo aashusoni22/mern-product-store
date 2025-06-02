@@ -49,9 +49,17 @@ export const removeFromCart = async (req, res) => {
 
 export const clearCart = async (req, res) => {
   try {
-    await CartItem.deleteMany({});
-    res.status(200).json({ success: true, message: "Cart cleared" });
+    const result = await CartItem.deleteMany({});
+    if (result.deletedCount === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No items found in cart" });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "Cart cleared successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error clearing cart:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };

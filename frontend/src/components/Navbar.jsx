@@ -3,14 +3,11 @@ import { MdHome } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { RxMoon } from "react-icons/rx";
-import { FiSun } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 
 const Navbar = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("home");
   const location = useLocation();
@@ -103,20 +100,6 @@ const Navbar = () => {
               <Link to={menu.path}>{menu.icon}</Link>
             </li>
           ))}
-          <li className="ml-3">
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={`${
-                isDarkMode ? "text-yellow-500" : "text-indigo-400"
-              } p-2 rounded hover:opacity-80 transition duration-200 ease-in-out`}
-            >
-              {isDarkMode ? (
-                <FiSun className="text-2xl" />
-              ) : (
-                <RxMoon className="text-2xl" />
-              )}
-            </button>
-          </li>
         </ul>
       </div>
     </nav>

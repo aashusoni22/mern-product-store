@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineShoppingCartCheckout,
+  MdOutlineClose,
+} from "react-icons/md";
 import { useCartStore } from "../store/cart";
 
 const CartPage = () => {
@@ -24,7 +28,10 @@ const CartPage = () => {
   };
 
   const handleClearCart = async () => {
-    await clearCartItems();
+    const result = await clearCartItems();
+    if (!result.success) {
+      console.error(result.message);
+    }
   };
 
   return (
@@ -41,7 +48,7 @@ const CartPage = () => {
       ) : cartItems.length === 0 ? (
         <p className="text-white">
           Your cart is empty.{" "}
-          <Link to="/" className="text-blue-500">
+          <Link to="/" className="text-cyan-500">
             Go shop!
           </Link>
         </p>
@@ -51,7 +58,7 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <li
                 key={item._id}
-                className="flex items-center justify-between bg-slate-800 text-white p-4 rounded shadow"
+                className="flex items-center justify-between bg-slate-800 text-white p-4 rounded shadow border border-slate-800 hover:border-cyan-500 transition duration-200 ease-in-out"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -59,7 +66,7 @@ const CartPage = () => {
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded"
                   />
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-semibold">{item.name}</h3>
                     <p>Price: ${item.price}</p>
                     <p>Qty: {item.quantity}</p>
@@ -69,19 +76,27 @@ const CartPage = () => {
                   onClick={() => handleRemoveItem(item._id)}
                   className="text-white bg-rose-500 px-3 py-2 rounded hover:bg-rose-600"
                 >
-                  <MdOutlineDeleteOutline className="text-2xl" />
+                  <MdOutlineClose className="text-2xl" />
                 </button>
               </li>
             ))}
           </ul>
 
-          <div className="mt-6">
+          <div className="mt-6 flex items-center justify-between">
             <button
               onClick={handleClearCart}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded"
+              className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-3 rounded flex items-center gap-1"
             >
+              <MdOutlineDeleteOutline className="text-xl text-rose-500" />
               Clear Cart
             </button>
+            <Link
+              to="/checkout"
+              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded ml-4 flex items-center gap-1"
+            >
+              <MdOutlineShoppingCartCheckout className="text-2xl" />
+              Checkout
+            </Link>
           </div>
         </>
       )}

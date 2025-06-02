@@ -42,7 +42,7 @@ const UpdateModal = ({ onClose, product }) => {
   };
 
   return (
-    <div className="fixed inset-0 backdrop-blur bg-black/10 flex items-center justify-center">
+    <div className="fixed inset-0 backdrop-blur bg-black/10 flex items-center justify-center p-4 md:p-0">
       <div className="bg-slate-800 w-96 p-4 rounded-lg shadow-md">
         <h1 className="text-2xl text-center font-bold text-white mb-4">
           Update Product
@@ -105,7 +105,7 @@ const UpdateModal = ({ onClose, product }) => {
           <div className="flex items-center gap-2 mt-2 mb-2">
             <button
               type="submit"
-              className="bg-yellow-500 p-2 w-full rounded text-white hover:bg-yellow-600 cursor-pointer duration-200 transition ease-in-out"
+              className="bg-blue-500 p-2 w-full rounded text-white hover:bg-blue-600 cursor-pointer duration-200 transition ease-in-out"
             >
               Update
             </button>
