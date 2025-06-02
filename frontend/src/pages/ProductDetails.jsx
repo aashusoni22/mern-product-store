@@ -5,7 +5,6 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { useCartStore } from "../store/cart";
 import { Bounce, toast } from "react-toastify";
-import { span } from "framer-motion/client";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -54,18 +53,18 @@ const ProductDetails = () => {
     return <div className="mt-20 text-white">Loading...</div>;
 
   return (
-    <div className="mt-20 flex flex-col max-w-7xl mx-auto px-6 text-white">
+    <div className="mt-12 md:mt-20 flex flex-col max-w-7xl mx-auto px-6 text-white">
       <Link to="/" className="flex gap-2 items-center">
         <IoArrowBackCircleOutline className="text-2xl text-white cursor-pointer" />
         <p>Back to Products</p>
       </Link>
-      <div className="mt-10 flex gap-5">
+      <div className="mt-10 flex flex-col md:flex-row gap-5 mb-5 md:mb-0">
         <img
           src={selectedProduct.image}
           alt={selectedProduct.name}
           className="max-w-[500px] max-h-[500px] aspect-square w-full object-cover rounded"
         />
-        <div className="flex flex-col ml-12">
+        <div className="flex flex-col md:ml-12">
           <h1 className="text-3xl font-bold">{selectedProduct.name}</h1>
           <p className="mt-4 text-lg">$ {selectedProduct.price}</p>
           <div className="mt-8">
