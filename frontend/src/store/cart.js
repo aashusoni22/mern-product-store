@@ -31,9 +31,19 @@ export const useCartStore = create((set) => ({
         return { success: false, message: data.message };
       }
 
-      set((state) => ({
-        cartItems: [...state.cartItems, data.data],
-      }));
+      set((state) => {
+        const existingItemIndex = state.cartItems.findIndex(
+          (item) => item.productId === product._id
+        );
+
+        if (existingItemIndex !== -1) {
+          const updatedCartItems = [...state.cartItems];
+          updatedCartItems[existingItemIndex].quantity += 1;
+          return { cartItems: updatedCartItems };
+        } else {
+          return { cartItems: [...state.cartItems, data.data] };
+        }
+      });
 
       return { success: true, message: "Product added to cart" };
     } catch (error) {
@@ -105,6 +115,36 @@ export const useCartStore = create((set) => ({
     } catch (error) {
       console.error("Error clearing cart:", error);
       return { success: false, message: "Failed to clear cart" };
+    }
+  },
+
+  updateCartItemQuantity: async (cartItemId, quantity) => {
+    try {
+      const res = await fetch(`/api/cart/${cartItemId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      if (!data.success) {
+        return { success: false, message: data.message };
+      }
+
+      set((state) => ({
+        cartItems: state.cartItems.map((item) =>
+          item._id === cartItemId ? data.data : item
+        ),
+      }));
+
+      return { success: true, message: data.message };
+    } catch (error) {
+      console.error("Error updating cart item quantity:", error);
+      return { success: false, message: "Failed to update cart item quantity" };
     }
   },
 }));

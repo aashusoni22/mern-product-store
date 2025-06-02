@@ -9,8 +9,13 @@ import {
 import { useCartStore } from "../store/cart";
 
 const CartPage = () => {
-  const { fetchCartItems, cartItems, removeFromCart, clearCartItems } =
-    useCartStore();
+  const {
+    fetchCartItems,
+    cartItems,
+    removeFromCart,
+    clearCartItems,
+    updateCartItemQuantity,
+  } = useCartStore();
 
   const [loading, setLoading] = useState(true);
 
@@ -72,15 +77,38 @@ const CartPage = () => {
                     <p>Qty: {item.quantity}</p>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleRemoveItem(item._id)}
-                  className="text-white bg-rose-500 px-3 py-2 rounded hover:bg-rose-600"
-                >
-                  <MdOutlineClose className="text-2xl" />
-                </button>
+                <div className="flex items-center gap-4">
+                  <input
+                    type="number"
+                    min="1"
+                    className="text-white px-2 py-2 w-14 rounded bg-slate-700 border border-slate-600 hover:border-cyan-500 transition duration-200 ease-in-out"
+                    value={item.quantity}
+                    onChange={(e) => {
+                      const newQuantity = parseInt(e.target.value);
+                      if (newQuantity > 0) {
+                        updateCartItemQuantity(item._id, newQuantity);
+                      }
+                    }}
+                  />
+                  <button
+                    onClick={() => handleRemoveItem(item._id)}
+                    className="text-white bg-rose-500 px-3 py-2 rounded hover:bg-rose-600"
+                  >
+                    <MdOutlineClose className="text-2xl" />
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
+
+          <div className="mt-6 flex justify-end">
+            <p className="text-white text-lg font-semibold">
+              Total: $
+              {cartItems
+                .reduce((acc, item) => acc + item.price * item.quantity, 0)
+                .toFixed(2)}
+            </p>
+          </div>
 
           <div className="mt-6 flex items-center justify-between">
             <button

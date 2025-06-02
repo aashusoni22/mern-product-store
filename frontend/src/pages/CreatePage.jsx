@@ -29,6 +29,7 @@ const CreatePage = () => {
         theme: "dark",
         transition: Bounce,
       });
+      navigate("/");
     } else {
       toast.error(message, {
         position: "top-right",
@@ -48,8 +49,6 @@ const CreatePage = () => {
       price: "",
       image: "",
     });
-
-    navigate("/");
   };
 
   return (
