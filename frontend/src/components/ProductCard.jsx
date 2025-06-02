@@ -3,13 +3,17 @@ import { BiEdit } from "react-icons/bi";
 import { useState } from "react";
 import UpdateModal from "./UpdateModal";
 import { RiShoppingCartLine } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa6";
 import DeleteModal from "./DeleteModal";
 import { useCartStore } from "../store/cart";
 import { Bounce, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [added, setAdded] = useState(false);
+
   const { addToCart } = useCartStore();
 
   const handleEdit = () => {
@@ -20,6 +24,7 @@ const ProductCard = ({ product }) => {
     const { success, message } = await addToCart(product);
 
     if (success) {
+      setAdded(true);
       toast.success("Product added to cart", {
         position: "top-right",
         autoClose: 3000,
@@ -31,6 +36,9 @@ const ProductCard = ({ product }) => {
         theme: "dark",
         transition: Bounce,
       });
+      setTimeout(() => {
+        setAdded(false);
+      }, 3000);
     } else {
       toast.error(message, {
         position: "top-right",
@@ -50,13 +58,15 @@ const ProductCard = ({ product }) => {
     <>
       <div
         key={product._id}
-        className="bg-slate-800 p-4 rounded shadow-md border border-slate-800 md:hover:border-cyan-400 transition duration-300 ease-in-out"
+        className="bg-slate-800 p-4 rounded shadow-md hover:scale-[1.02] transition duration-300 ease-in-out"
       >
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-56 object-cover rounded"
-        />
+        <Link to={`/products/${product._id}`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-50 object-cover rounded"
+          />
+        </Link>
         <h2 className="text-lg font-semibold mt-2 text-white">
           {product.name}
         </h2>
@@ -65,12 +75,20 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center gap-2 mt-4">
           <button
             onClick={handleAddToCart}
-            className="bg-green-500 text-white p-2 w-full flex justify-center rounded hover:bg-green-600 transition duration-200 ease-in-out cursor-pointer"
+            className={`${
+              added ? "bg-emerald-500" : "bg-cyan-500"
+            } text-white p-2 w-full hover:w-[48rem] flex justify-center rounded hover:${
+              added ? "bg-emerald-600" : "bg-cyan-600"
+            } transition-all duration-200 ease-in-out cursor-pointer`}
           >
-            <RiShoppingCartLine className="text-xl" />
+            {added ? (
+              <FaCheck className="text-xl" />
+            ) : (
+              <RiShoppingCartLine className="text-xl" />
+            )}
           </button>
           <button
-            className="bg-blue-500 text-white p-2 w-full flex justify-center rounded hover:bg-blue-600 transition duration-200 ease-in-out cursor-pointer"
+            className="bg-slate-600 text-white p-2 w-full flex justify-center rounded hover:bg-slate-700 transition duration-200 ease-in-out cursor-pointer"
             onClick={handleEdit}
           >
             <BiEdit className="text-xl" />
@@ -83,6 +101,7 @@ const ProductCard = ({ product }) => {
           </button>
         </div>
       </div>
+
       {showModal && (
         <UpdateModal product={product} onClose={() => setShowModal(false)} />
       )}

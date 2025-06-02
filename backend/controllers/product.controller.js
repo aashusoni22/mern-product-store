@@ -10,10 +10,38 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getProduct = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Product not found" });
+  }
+
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+
+    res.status(200).json({ success: true, data: product });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const createProduct = async (req, res) => {
   const product = req.body; // user will send the product in the request body
 
-  if (!product.name || !product.price || !product.image) {
+  if (
+    !product.name ||
+    !product.price ||
+    !product.description ||
+    !product.image
+  ) {
     return res
       .status(400)
       .json({ message: "Product name, price and image are required" });

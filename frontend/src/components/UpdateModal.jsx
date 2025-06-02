@@ -85,6 +85,27 @@ const UpdateModal = ({ onClose, product }) => {
             />
           </div>
           <div className="flex flex-col gap-2">
+            <label
+              htmlFor="productDescription"
+              className="text-white font-semibold"
+            >
+              Description
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. A T-Shirt"
+              id="productDescription"
+              value={updatedProduct.description}
+              onChange={(e) =>
+                setUpdatedProduct({
+                  ...updatedProduct,
+                  description: e.target.value,
+                })
+              }
+              className="bg-slate-700 p-2 w-full rounded"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
             <label htmlFor="productImg" className="text-white font-semibold">
               Image
             </label>
@@ -105,7 +126,7 @@ const UpdateModal = ({ onClose, product }) => {
           <div className="flex items-center gap-2 mt-2 mb-2">
             <button
               type="submit"
-              className="bg-blue-500 p-2 w-full rounded text-white hover:bg-blue-600 cursor-pointer duration-200 transition ease-in-out"
+              className="bg-cyan-500 p-2 w-full rounded text-white hover:bg-cyan-600 cursor-pointer duration-200 transition ease-in-out"
             >
               Update
             </button>

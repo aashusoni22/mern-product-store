@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import CartPage from "./pages/CartPage.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
 
 const App = () => {
   const notify = () => toast("Wow so easy!");
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
       </div>
     </div>

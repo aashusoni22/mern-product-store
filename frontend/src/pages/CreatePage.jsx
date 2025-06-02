@@ -7,6 +7,7 @@ const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
+    description: "",
     image: "",
   });
   const navigate = useNavigate();
@@ -91,6 +92,18 @@ const CreatePage = () => {
                 value={newProduct.price}
                 onChange={(e) =>
                   setNewProduct({ ...newProduct, price: e.target.value })
+                }
+                className="bg-slate-700 p-2 w-full rounded"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="productDesc">Description</label>
+              <textarea
+                placeholder="e.g. This is a T-Shirt"
+                id="productDesc"
+                value={newProduct.description}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, description: e.target.value })
                 }
                 className="bg-slate-700 p-2 w-full rounded"
               />

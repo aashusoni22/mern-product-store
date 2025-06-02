@@ -2,9 +2,17 @@ import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
   products: [],
+  selectedProduct: null,
   setProducts: (products) => set({ products }),
+  setSelectedProduct: (product) => set({ selectedProduct: product }),
+
   createProduct: async (newProduct) => {
-    if (!newProduct.name || !newProduct.price || !newProduct.image) {
+    if (
+      !newProduct.name ||
+      !newProduct.price ||
+      !newProduct.description ||
+      !newProduct.image
+    ) {
       return { success: false, message: "All fields are required" };
     }
 
@@ -26,6 +34,12 @@ export const useProductStore = create((set) => ({
     const res = await fetch("/api/products");
     const data = await res.json();
     set({ products: data.data });
+  },
+
+  fetchProduct: async (id) => {
+    const res = await fetch(`/api/products/${id}`);
+    const data = await res.json();
+    set({ selectedProduct: data.data });
   },
 
   deleteProduct: async (id) => {
