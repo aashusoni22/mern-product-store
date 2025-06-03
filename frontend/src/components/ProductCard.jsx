@@ -96,7 +96,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Admin Actions */}
-        <div className="absolute top-2 right-2 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
+        <div className="hidden md:flex absolute top-2 right-2 gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
           <button
             onClick={() => setShowUpdateModal(true)}
             className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors duration-200"
