@@ -6,6 +6,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,6 +32,18 @@ const Navbar = () => {
       path: "/cart",
       label: "Cart",
     },
+    {
+      name: "login",
+      icon: <FaSignInAlt className="text-2xl" />,
+      path: "/login",
+      label: "Login",
+    },
+    {
+      name: "signup",
+      icon: <FaUserPlus className="text-2xl" />,
+      path: "/signup",
+      label: "Signup",
+    },
   ];
 
   useEffect(() => {
@@ -45,7 +58,7 @@ const Navbar = () => {
         <Link to="/" className="flex gap-2 items-center group">
           <HiMiniShoppingBag className="text-3xl text-cyan-500 group-hover:scale-110 transition-transform duration-200" />
           <h1 className="text-2xl font-semibold text-white md:text-3xl">
-            <span className="text-cyan-500">Nexus</span>Store
+            <span className="text-cyan-500">MERN</span>Store
           </h1>
         </Link>
 
@@ -64,7 +77,7 @@ const Navbar = () => {
                 <Link to="/" className="flex gap-2 items-center">
                   <HiMiniShoppingBag className="text-3xl text-cyan-500" />
                   <h1 className="text-2xl font-semibold text-white">
-                    <span className="text-cyan-500">Nexus</span>Store
+                    <span className="text-cyan-500">MERN</span>Store
                   </h1>
                 </Link>
                 <button
